@@ -26,13 +26,6 @@ export const taskSlice = createSlice({
             });
             state.value = clone;
         },
-        updateTask: (state, action) => {
-            const { value } = action.payload;
-            const { index } = action.payload;
-            const { id } = action.payload;
-            const update = state.value[index].find((task) => task.id === id);
-            update.value = value;
-        },
         viewTab: (state, action) => {
             const update = state.value.map((tab) =>
                 tab.id === action.payload
@@ -41,10 +34,63 @@ export const taskSlice = createSlice({
             );
             state.value = update;
         },
+        updateTask: (state, action) => {
+            const { value } = action.payload;
+            const { id } = action.payload;
+            const update = state.value.map((tab) =>
+                tab.active
+                    ? {
+                          ...tab,
+                          tasks: tab.tasks.map((task) =>
+                              task.id === id
+                                  ? { ...task, value: value }
+                                  : { ...task }
+                          ),
+                      }
+                    : { ...tab }
+            );
+
+            state.value = update;
+        },
+        newTask: (state) => {
+            const update = state.value.map((tab) =>
+                tab.active
+                    ? {
+                          ...tab,
+                          tasks: [
+                              ...tab.tasks,
+                              {
+                                  id: `task${tab.tasks.length + 1}`,
+                                  value: "",
+                                  completed: false,
+                              },
+                          ],
+                      }
+                    : { ...tab }
+            );
+            state.value = update;
+        },
+        completeTask: (state, action) => {
+            const update = state.value.map((tab) =>
+                tab.active
+                    ? {
+                          ...tab,
+                          tasks: tab.tasks.map((task) =>
+                              task.id === action.payload
+                                  ? { ...task, completed: !task.completed }
+                                  : { ...task }
+                          ),
+                      }
+                    : { ...tab }
+            );
+
+            state.value = update;
+        },
     },
 });
 
-export const { newTab, updateTask, viewTab } = taskSlice.actions;
+export const { newTab, updateTask, viewTab, newTask, completeTask } =
+    taskSlice.actions;
 // export const selectTask = (index, id) => (state) => state.value[index];
 export const activeTab = (state) =>
     state.tasks.value.find((tab) => tab.active === true);

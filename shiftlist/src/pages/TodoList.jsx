@@ -11,9 +11,9 @@ export default function TodoList() {
     //and only render a tasklist for that active tab.
 
     const currentTab = useSelector(activeTab);
-    console.log(currentTab);
+
     const tasks = currentTab.tasks;
-    console.log(tasks);
+
     return (
         <Layout>
             <Title />
