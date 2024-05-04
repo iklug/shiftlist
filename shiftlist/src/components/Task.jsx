@@ -1,6 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTask, completeTask } from "../redux/taskLists";
+import {
+    updateTask,
+    completeTask,
+    deleteTask,
+    newTask,
+    indentTask,
+} from "../redux/taskLists";
 import { XMarkIcon, EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 
 function CompleteTaskButton({ completed, id }) {
@@ -21,6 +27,12 @@ function ExpandingTextArea({ value, id, completed }) {
 
     const ref = useRef(null);
 
+    useEffect(() => {
+        if (ref.current.value === "") {
+            ref.current.focus();
+        }
+    }, []);
+
     const handleChange = (e) => {
         dispatch(updateTask({ value: e.target.value, id: id }));
         const textarea = ref.current;
@@ -29,11 +41,19 @@ function ExpandingTextArea({ value, id, completed }) {
         textarea.style.height = Math.max(textarea.scrollHeight, 24) + "px";
     };
 
+    const handleEnter = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            dispatch(newTask());
+        }
+    };
+
     return (
         <textarea
             ref={ref}
             value={value}
             onChange={handleChange}
+            onKeyDown={handleEnter}
             style={{
                 height: "24px",
             }}
@@ -44,24 +64,23 @@ function ExpandingTextArea({ value, id, completed }) {
     );
 }
 
-export default function Task({ value, completed, id }) {
-    const [indent, setIndent] = useState(false);
-
-    const handleIndent = () => {
-        setIndent(!indent);
-    };
+export default function Task({ value, completed, id, indented }) {
+    const dispatch = useDispatch();
 
     return (
         <div className="group p-2 flex justify-center items-start gap-3 border border-transparent hover:border-gray-200">
-            {indent && <div className="h-2 w-2"></div>}
+            {indented && <div className="h-2 w-4"></div>}
             <EllipsisVerticalIcon
                 className="h-6 w-6 -mr-3 -ml-2 text-transparent group-hover:text-gray-400 cursor-pointer"
-                onClick={handleIndent}
+                onClick={() => dispatch(indentTask(id))}
             />
             <CompleteTaskButton completed={completed} id={id} />
             <ExpandingTextArea id={id} value={value} completed={completed} />
 
-            <XMarkIcon className=" h-6 w-6 group-hover:text-gray-300 hover:bg-gray-50 hover:rounded-sm text-transparent" />
+            <XMarkIcon
+                className=" h-6 w-6 group-hover:text-gray-300 hover:bg-gray-50 hover:rounded-sm text-transparent"
+                onClick={() => dispatch(deleteTask(id))}
+            />
         </div>
     );
 }

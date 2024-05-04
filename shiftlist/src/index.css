@@ -5,3 +5,7 @@
 :root {
     box-sizing: border-box;
 }
+
+.opaque-backdrop {
+    background: rgba(44, 44, 44, 0.5);
+}
