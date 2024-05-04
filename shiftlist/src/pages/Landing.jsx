@@ -13,7 +13,7 @@ export default function Landing({ viewAll }) {
             <div className=" text-6xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-violet-400 font-bold mb-10">
                 ShiftList
             </div>
-            <NewShiftButton newShift={newShift} />
+            <NewShiftButton />
             <ViewShiftsButton handleClick={viewAll} />
         </div>
     );
