@@ -14,7 +14,7 @@ export default function Title({ saving }) {
                 className="font-roboto h-10 border-transparent bg-gray-100 text-gray-600 outline-none text-xl font-semibold w-full"
                 onChange={(e) => dispatch(setTitle(e.target.value))}
             />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ml-4">
                 <div className="text-sm text-gray-400">
                     {saving === "saving"
                         ? "saving"
