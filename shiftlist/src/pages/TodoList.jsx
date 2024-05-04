@@ -203,12 +203,7 @@ export default function TodoList() {
                 <SavedTasksTab disable={viewAll} />
             </Sidebar>
             <Layout>
-                {noShift && (
-                    <Landing
-                        viewAll={handleViewAll}
-                        newShift={() => setNoShift(false)}
-                    />
-                )}
+                {noShift && <Landing viewAll={handleViewAll} />}
                 {!viewAll && !noShift && (
                     <>
                         <Title saving={saving} />
@@ -223,12 +218,7 @@ export default function TodoList() {
                         />
                     </>
                 )}
-                {viewAll && !noShift && (
-                    <ViewAll
-                        allPosts={allPosts}
-                        handleView={() => setViewAll(false)}
-                    />
-                )}
+                {viewAll && !noShift && <ViewAll allPosts={allPosts} />}
             </Layout>
             {/* <EditTabContainer tabs={tabs} /> */}
         </div>

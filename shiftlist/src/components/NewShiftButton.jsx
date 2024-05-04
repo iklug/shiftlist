@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import shiftTemplate from "../utils/shiftTemplate";
 import { changeNoShift } from "../redux/miscState";
 
-export default function NewShiftButton({ newShift }) {
+export default function NewShiftButton() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleClick = () => {
         dispatch(setShift(shiftTemplate));

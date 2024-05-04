@@ -7,7 +7,7 @@ import SidebarTab from "../components/SidebarTab";
 import SavedTasksTab from "../components/SavedTasksTab";
 import { useState, useEffect } from "react";
 
-export default function Landing({ viewAll, newShift }) {
+export default function Landing({ viewAll }) {
     return (
         <div className="flex flex-col items-center">
             <div className=" text-6xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-violet-400 font-bold mb-10">
