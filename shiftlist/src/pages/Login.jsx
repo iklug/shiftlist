@@ -35,6 +35,7 @@ export default function Login() {
             }
             const data = await request.json();
             console.log(data);
+            sessionStorage.setItem("user", data._id);
             navigate("/");
         } catch (error) {
             console.error(error);

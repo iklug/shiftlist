@@ -27,8 +27,18 @@ import {
 import { useEffect, useRef, useState } from "react";
 import apiURL from "../utils/apiURL";
 import { addAllSavedTasks, addSavedTask } from "../redux/savedTasks";
+import { useNavigate } from "react-router-dom";
 
 export default function TodoList() {
+    const sessionInfo = sessionStorage.getItem("user");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!sessionInfo) {
+            navigate("/login");
+        }
+    }, []);
+
     const [renaming, setRenaming] = useState(false);
     const currentTab = useSelector(activeTab);
     const shift = useSelector(selectShift);
