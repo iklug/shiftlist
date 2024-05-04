@@ -7,7 +7,6 @@ const Pages = () => {
     return <div></div>;
 };
 const ShiftLink = ({ title, tabs, updatedAt, _id, handleView }) => {
-    console.log(tabs);
     const dispatch = useDispatch();
     const handleSelect = () => {
         dispatch(setShift({ title: title, tabs: tabs, _id: _id }));
@@ -34,7 +33,6 @@ const AllShiftsContainer = () => {
 export default function ViewAll({ allPosts, handleView }) {
     const [loading, setLoading] = useState(false);
     const [initialRender, setInitialRender] = useState(true);
-    console.log("all posts are here", allPosts);
     const shift = useSelector(selectShift);
 
     useEffect(() => {

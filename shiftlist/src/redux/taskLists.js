@@ -126,7 +126,6 @@ export const taskSlice = createSlice({
             state.value = update;
         },
         indentTask: (state, action) => {
-            console.log("here we goooo");
             const update = state.value.map((tab) =>
                 tab.active
                     ? {

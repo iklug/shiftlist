@@ -38,7 +38,6 @@ const EditTab = ({ title, active, id }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(ref);
         if (ref.current && active) {
             ref.current.focus();
         }

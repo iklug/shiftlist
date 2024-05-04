@@ -13,13 +13,13 @@ import {
     deleteSavedTask,
 } from "../redux/savedTasks";
 import apiURL from "../utils/apiURL";
+import { selectNoShift } from "../redux/miscState";
 
 const SavedTask = ({ title, edit, disable, id }) => {
     const dispatch = useDispatch();
     const savedTasks = useSelector(selectSavedTasks);
-    console.log("these are the savedTasks", savedTasks);
+    const noShift = useSelector(selectNoShift);
     const handleDelete = () => {
-        console.log("this is something");
         dispatch(deleteSavedTask(id));
     };
 
@@ -33,14 +33,14 @@ const SavedTask = ({ title, edit, disable, id }) => {
             <div id="title" className="text-sm w-32 truncate">
                 {title}
             </div>
-            {!edit && !disable && (
+            {!edit && !disable && !noShift && (
                 <PlusIcon
                     className="size-4 group-hover:visible invisible text-gray-500 hover:text-gray-900"
                     title="Add to current tab"
                     onClick={() => dispatch(newTask(title))}
                 />
             )}
-            {!edit && !disable && (
+            {!edit && !disable && !noShift && (
                 <DocumentPlusIcon
                     className="size-5 group-hover:visible invisible text-gray-500 hover:text-gray-900"
                     title="Add to all tabs"
@@ -64,7 +64,6 @@ const TaskInput = ({ closeInput }) => {
         //dispatch(setTask to something because i don't really need to wait for the backend for this)
         dispatch(addSavedTask({ title: task }));
         //does this not just make the task dissapear?
-        // closeInput();
         closeInput();
         try {
             const request = await fetch(`${apiURL}/shiftlist/task`, {
@@ -124,7 +123,6 @@ export default function SavedTasksTab({ disable }) {
     };
 
     const savedTasks = useSelector(selectSavedTasks);
-    console.log("savedTasks 😀", savedTasks);
     const dispatch = useDispatch();
 
     const saveDeletion = async () => {

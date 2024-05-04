@@ -44,7 +44,6 @@ export default function TodoList() {
     const shift = useSelector(selectShift);
     const noShift = useSelector(selectNoShift);
     const viewAll = useSelector(selectViewAll);
-    console.log("trying new things,", noShift, viewAll);
     const tasks = currentTab.tasks;
 
     const [recent, setRecent] = useState(null);
@@ -166,8 +165,13 @@ export default function TodoList() {
         if (initialRender) {
             setInitialRender(false);
         } else {
-            resetTimer();
-            resetSaving();
+            if (!noShift || (!noShift && !viewAll)) {
+                resetTimer();
+                resetSaving();
+            } else {
+                clearTimeout(savingRef.current);
+                clearTimeout(timerRef.current);
+            }
         }
     }, [shift]);
 
@@ -220,7 +224,6 @@ export default function TodoList() {
                 )}
                 {viewAll && !noShift && <ViewAll allPosts={allPosts} />}
             </Layout>
-            {/* <EditTabContainer tabs={tabs} /> */}
         </div>
     );
 }

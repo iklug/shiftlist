@@ -36,7 +36,6 @@ function ExpandingTextArea({ value, id, completed }) {
     const handleChange = (e) => {
         dispatch(updateTask({ value: e.target.value, id: id }));
         const textarea = ref.current;
-        console.log(textarea.scrollHeight);
         textarea.style.height = "24px";
         textarea.style.height = Math.max(textarea.scrollHeight, 24) + "px";
     };
