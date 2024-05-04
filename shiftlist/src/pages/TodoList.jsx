@@ -165,7 +165,7 @@ export default function TodoList() {
         if (initialRender) {
             setInitialRender(false);
         } else {
-            if (!noShift || (!noShift && !viewAll)) {
+            if (!noShift && !viewAll) {
                 resetTimer();
                 resetSaving();
             } else {
