@@ -49,7 +49,6 @@ export default function ViewAll({ allPosts, handleView }) {
         <div
             className="h-full w-full  md:w-4/5 pr-6  my-24 flex flex-col items-center overflow-y-scroll "
             id="container"
-            onScroll={(e) => handleScroll(e)}
         >
             {allPosts.length === 0 ? (
                 <div className=" animate-pulse h-full w-full bg-white flex justify-center items-center">
@@ -59,7 +58,6 @@ export default function ViewAll({ allPosts, handleView }) {
                 <div
                     id="conto"
                     className="flex flex-col rounded-lg overflow-y-scroll w-full"
-                    onScroll={(e) => handleScroll(e)}
                 >
                     {allPosts.map((post) => (
                         <ShiftLink
